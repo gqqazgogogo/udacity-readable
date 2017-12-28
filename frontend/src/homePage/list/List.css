@@ -1,0 +1,68 @@
+.readable-list {}
+
+.readable-list>.readable {
+    padding: 0 16px 30px;
+    margin: 16px;
+}
+
+.readable-list>.readable:not(:last-child) {
+    border-bottom: 1px solid #EDE7F6;
+}
+
+.readable-list>.readable>.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.readable-list>.readable>.header>.left {
+    flex-grow: 1;
+}
+
+.readable-list>.readable>.header>.right {
+    white-space: nowrap;
+}
+
+.readable-list>.readable>.header>.left>.category {
+    color: #F57F17;
+}
+
+.readable-list>.readable>.header>.left>.title {
+    color: #673AB7;
+    margin-left: 8px;
+}
+
+.readable-list>.readable>.header>.right>.vote {
+    margin-right: 8px;
+}
+
+.readable-list>.readable>.header>.right>.vote>.score.up {
+    color: #4CAF50;
+}
+
+.readable-list>.readable>.header>.right>.vote>.score.down {
+    color: #F44336;
+}
+
+.readable-list>.readable>.content {
+    padding: 2px 6px;
+}
+
+.readable-list>.readable>.content>.body {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.readable-list>.readable>.footer>.author {
+    font-size: 14px;
+    float: right;
+    color: #212121;
+    margin-right: 8px;
+}
+
+.readable-list>.readable>.footer>.date {
+    float: right;
+    color: #757575;
+    font-size: 10px;
+    padding: 2px 0;
+}

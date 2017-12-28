@@ -1,0 +1,12 @@
+[ignore]
+
+[include]
+./utils/models.js
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]
