@@ -102,7 +102,10 @@ export const createComment = params => (dispatch, getState) => {
 	dispatch(commentStart());
 	return postComment(params)
 		.then(comment => {
-			dispatch(commentEnd(comment))
+			dispatch(commentEnd({
+				...comment,
+				date: new Date().Format("yyyy-MM-dd")
+			}))
 		});
 }
 const commentStart = () => ({

@@ -20,14 +20,15 @@ class HomePage extends Component {
     };
 
     createReadable = (data) => {
-        console.log(data);
-        const postParams = {
-            title: data.theme,
-            body: data.content,
-            author: data.author,
-            category: data.type
+        if (data.theme !== null && data.content !== null && data.author !== null && data.type !== null) {
+            const postParams = {
+                title: data.theme,
+                body: data.content,
+                author: data.author,
+                category: data.type
+            }
+            this.props.publicReadable(postParams);
         }
-        this.props.publicReadable(postParams);
     }
 
     render() {

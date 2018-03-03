@@ -5,15 +5,14 @@ import React, {
 import "./Creator.css";
 
 class Creator extends Component {
+	submitInfo = {
+		theme: null,
+		content: null,
+		type: null,
+		author: null
+	};
 	submit() {
-		if ( this.contentDom.value !== '' && this.themeDom.value !== '' && this.authorDom.value !== '' ) {
-			this.props.submit( {
-				theme: this.themeDom ? this.themeDom.value : null,
-				content: this.contentDom.value,
-				type: this.typeDom ? this.typeDom.value : null,
-				author: this.authorDom.value
-			} );
-		}
+		this.props.submit(this.submitInfo);
 	}
 	render() {
 		const {
@@ -21,13 +20,16 @@ class Creator extends Component {
 			types,
 			type
 		} = this.props;
+		if (this.submitInfo.type === null && types && types.length > 0) {
+			this.submitInfo.type = types[0].name;
+		}
 		return (
 			<div className="creator">
                 <div className="title">
                     {title}
                     {
                         (types && types.length > 0)
-                        ? <select ref={dom => this.typeDom = dom}>
+                        ? <select onChange={event => this.submitInfo.type = event.target.value}>
                             {
                                 types.map(type => (
                                     <option key={type.name} value={type.name}>{type.name}</option>
@@ -39,11 +41,11 @@ class Creator extends Component {
                 </div>
 								{
 									type === 'read'
-									? <input ref={dom => this.themeDom = dom} className="theme" placeholder="please input theme" />
+									? <input onChange={event => this.submitInfo.theme = event.target.value} className="theme" placeholder="please input theme" />
 									: null
 								}
-                <input ref={dom => this.authorDom = dom} className="author" placeholder="please input your name" />
-                <textarea ref={dom => this.contentDom = dom} className="content" placeholder="please input content..."></textarea>
+                <input onChange={event => this.submitInfo.author = event.target.value} className="author" placeholder="please input your name" />
+                <textarea onChange={event => this.submitInfo.content = event.target.value} className="content" placeholder="please input content..."></textarea>
                 <div className="buttons">
                     <span className="submit" onClick={event => this.submit()}>Submit</span>
                 </div>

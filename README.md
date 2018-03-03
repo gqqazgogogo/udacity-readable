@@ -1,22 +1,23 @@
-# Readable API Server
+# Readable简介
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+服务端使用udacity提供的起始程序,前端通过create-react-app脚手架构建
 
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
+## 启动项目
 
-## Start Developing
+开始开发需要安装API server和frontend的依赖
 
-To get started developing right away:
-
-* Install and start the API server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
-    - `npm start`
+* 安装启动服务端,需在终端下执行如下命令:
+    - 进入服务端目录:`cd api-server`
+    - 安装包依赖:`npm install`
+    - 启动服务:`node server`
+* 启动前端项目，需打开新的终端执行如下命令:
+    - 进入前端工程目录:`cd frontend`
+    - 安装包依赖:`npm install`
+    - 启动react`npm start`
+* 项目使用scss，如果修改样式，需打开新的终端执行如下命令:
+    - 进入前端工程目录:`cd frontend`
+    - 启动scss文件监听服务:`npm run watch-css`
 
 ## API Server
 
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+关于服务端文档可参考[README file](api-server/README.md).

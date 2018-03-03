@@ -52,12 +52,14 @@ class ReadDetail extends Component {
 	}
 
 	createComment = (data) => {
+		if (data.parentId !== null && data.body !== null && data.author !== null) {
 			const postParams = {
-					parentId: this.props.readable.id,
-					body: data.content,
-					author: data.author
-			}
-			this.props.createComment(postParams)
+				parentId: this.props.readable.id,
+				body: data.content,
+				author: data.author
+			};
+			this.props.createComment(postParams);
+		}	
 	}
 	render() {
 		const {
