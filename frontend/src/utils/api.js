@@ -7,7 +7,8 @@ if (!token)
 		.substr(-8);
 const headers = {
 	Accept: 'application/json',
-	Authorization: token
+	Authorization: token,
+	'Content-Type': 'application/json'
 };
 
 export const getCategories = (): Promise<Categories[]> =>
@@ -36,21 +37,21 @@ export const postDoc = (doc: PostDocInfo) =>
 	fetch(`${api}/posts`, {
 		method: 'POST',
 		headers,
-		body: {
+		body: JSON.stringify({
 			...doc,
 			id: `${token}${Date.now()}`, // !!! not truly uuid
 			timestamp: Date.now()
-		}
+		})
 	}).then(res => res.json());
 
 export const editDoc = ({ id, title, body }) =>
 	fetch(`${api}/posts/${id}`, {
 		method: 'PUT',
 		headers,
-		body: {
+		body: JSON.stringify({
 			title,
 			body
-		}
+		})
 	}).then(res => res.json());
 
 export const voteDoc = (id: string, option: 'upVote' | 'downVote') =>
@@ -75,30 +76,28 @@ export const postComment = (comment: PostCommentInfo) =>
 	fetch(`${api}/comments`, {
 		method: 'POST',
 		headers,
-		body: {
+		body: JSON.stringify({
 			id: `${token}${Date.now()}`,
 			timestamp: Date.now(),
 			...comment
-		}
+		})
 	}).then(res => res.json());
 
 export const editComment = (body: string) =>
 	fetch(`${api}/comments`, {
 		method: 'PUT',
 		headers,
-		body: {
+		body: JSON.stringify({
 			timestamp: Date.now(),
 			body
-		}
+		})
 	}).then(res => res.json());
 
 export const voteComment = (id: string, option: 'upVote' | 'downVote') =>
 	fetch(`${api}/comments/${id}`, {
 		method: 'POST',
 		headers,
-		body: {
-			option
-		}
+		body: JSON.stringify({option})
 	}).then(res => res.json());
 
 export const deleteComment = (id: string) =>
@@ -106,3 +105,17 @@ export const deleteComment = (id: string) =>
 		method: 'DELETE',
 		headers
 	}).then(res => res.json());
+
+export const sort = (list, by) => {
+	let sortedList = [];
+	if (by === "vote") {
+		sortedList = list.sort((a, b) => {
+			return a.voteScore < b.voteScore;
+		});
+	} else {
+		sortedList = list.sort((a, b) => {
+			return a.timestamp < b.timestamp;
+		});
+	}
+	return sortedList;
+}

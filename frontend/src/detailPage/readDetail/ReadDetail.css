@@ -1,9 +1,0 @@
-.read-detail>.info {
-    display: flex;
-    justify-content: space-around;
-}
-
-.read-detail>.body {
-    padding: 8px;
-    min-height: 240px;
-}

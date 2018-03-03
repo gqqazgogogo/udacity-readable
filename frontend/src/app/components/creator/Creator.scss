@@ -1,0 +1,40 @@
+.creator {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    max-width: 540px;
+    >.title {
+        margin: 8px;
+    }
+    >.theme,.author {
+        margin: 8px;
+        padding: 4px 12px;
+        border: none;
+        border-bottom: 1px solid #616161;
+        outline: 0px;
+        &:focus {
+            border-color: #673AB7;
+        }
+    }
+    >.content {
+        margin: 8px;
+        resize: none;
+        padding: 4px 12px;
+        border-radius: 5px;
+        outline: 0px;
+        border-color: #616161;
+        &:focus {
+            border-color: #673AB7;
+        }
+    }
+    >.buttons {
+        text-align: right;
+        >.submit {
+            background-color: #673AB7;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            padding: 4px 12px;
+        }
+    }
+}

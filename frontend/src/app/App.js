@@ -10,8 +10,8 @@ import {
 	withRouter
 } from 'react-router-dom'
 
-import HomePage from '../homePage/HomePage'
-import DetailPage from '../detailPage/DetailPage'
+import HomePage from './pages/homePage/HomePage'
+import DetailPage from './pages/detailPage/DetailPage'
 import './App.css';
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
 			<div className="App">
 				<Route exact path="/" component={HomePage} />
 				<Route exact path="/detail" component={DetailPage} />
-      </div>
+      		</div>
 		)
 	}
 }

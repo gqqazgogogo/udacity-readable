@@ -1,0 +1,14 @@
+.read-detail > .info {
+  display: flex;
+  justify-content: space-around; }
+
+.read-detail > .body, .read-detail .edit-body {
+  margin: 8px;
+  min-height: 240px; }
+
+.read-detail > .edit-body {
+  width: 100%; }
+
+.read-detail button {
+  padding: 12px 8px;
+  margin-left: 8px; }

@@ -1,0 +1,11 @@
+.comment {
+  margin-top: 8px;
+  padding: 0 8px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #EDE7F6; }
+  .comment > .header > .delete {
+    float: right;
+    cursor: pointer;
+    color: #f44336; }
+  .comment > .content {
+    padding: 0 8px; }

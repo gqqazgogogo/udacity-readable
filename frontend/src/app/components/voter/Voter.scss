@@ -1,0 +1,35 @@
+.voter {
+    width: 120px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    margin-right: 8px;
+    &.disabled {
+        >.button {
+            cursor: not-allowed;
+        }
+    }
+    &:not(.disabled) {
+        >.button {
+            &.up:hover {
+                color: #4caf50;
+            }
+            &.down:hover {
+                color: #f44336;
+            }
+        }
+    }
+    >.button {
+        cursor: pointer;
+        width: 50%;
+        transition: all 0.15s ease-in;
+        text-align: center;
+        &:not(:last-child) {
+            border-right: 1px solid #616161;
+        }
+    }
+}
