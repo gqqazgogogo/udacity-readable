@@ -64,12 +64,17 @@ export function detailPage(state = initialState, action) {
 				touchCommentIndex: payload.touchCommentIndex
 			}
 		case VOTE_COMMENT_END:
-			const newState = { ...state,
+			return { ...state,
 				touchCommentIndex: null,
-				voting: false
+				voting: false,
+				comments: state.comments.map((item, index) => {
+					// const comment = {...item};
+					if (index === state.touchCommentIndex) {
+						item.voteScore = payload.comment.voteScore
+					}
+					return item;
+				})
 			};
-			newState.comments[state.touchCommentIndex] = payload.comment;
-			return newState;
 		case SORT_COMMENTS:
 			return { ...state,
 				sortby: payload.sortby,
