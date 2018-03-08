@@ -5,14 +5,26 @@ import React, {
 import {
 	Link
 } from "react-router-dom";
-
+import { connect } from "react-redux";
+import Voter from '../../../components/voter/Voter';
 import "./Readable.css";
+import { vote, deleteReadable } from '../actions';
 
 class Readable extends Component {
+	vote = ( id, option ) => {
+		if ( !this.props.voting ) {
+			this.props.vote( id, option );
+		}
+	};
+	deleteRead = (id) => {
+		this.props.deleteReadable(id);
+	}
 	render() {
 		const {
 			readable,
-			showDetail
+			showDetail,
+			voting,
+			categorie
 		} = this.props;
 		return (
 				<div className="readable">
@@ -20,12 +32,15 @@ class Readable extends Component {
 		          <div className="left">
 		              [<span className="category">{readable.category}</span>]
 		              <Link onClick={() => showDetail(readable.id)}
-		                  to="/detail"
+		                  to={`/${categorie}/${readable.id}`}
 		                  className="title">
 		                  {readable.title}
 		              </Link>
 		          </div>
 		          <div className="right">
+									<span className="vote">
+											<button onClick={event => this.deleteRead(readable.id)}>delete</button>
+									</span>
 		              <span className="vote">
 		                  vote:
 											<span className={`score ${readable.voteScore > 0? "up": "down"}`}>
@@ -39,7 +54,8 @@ class Readable extends Component {
 		      </div>
 		      <div className="content">
 		          <div className="body">{readable.body}</div>
-		      </div>
+			  </div>
+			  <Voter vote={( id, option ) => this.vote(readable.id, option)} voting={voting} voteScore={readable.voteScore} />
 		      <div className="footer">
 		          <span className="date">{readable.date}</span>
 		          <span className="author">
@@ -51,4 +67,24 @@ class Readable extends Component {
 	}
 }
 
-export default Readable;
+function mapStateToProps( {
+	homePage
+} ) {
+	const {
+		categorie,
+		voting
+	} = homePage;
+	return {
+		categorie,
+		voting
+	};
+}
+
+function mapDispatchToProps( dispatch ) {
+	return {
+		vote: ( showId, option ) => dispatch( vote( showId, option ) ),
+		deleteReadable: ( id ) => dispatch( deleteReadable( id ) )
+	};
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )( Readable );

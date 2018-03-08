@@ -7,6 +7,7 @@ import {
 } from 'react-redux'
 import {
 	Route,
+	Redirect,
 	withRouter
 } from 'react-router-dom'
 
@@ -18,9 +19,10 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Route exact path="/" component={HomePage} />
-				<Route exact path="/detail" component={DetailPage} />
-      		</div>
+				<Redirect exact to="/all" />
+				<Route exact path="/:categorie" component={HomePage} />
+				<Route exact path="/:categorie/:id" component={DetailPage} />
+      </div>
 		)
 	}
 }

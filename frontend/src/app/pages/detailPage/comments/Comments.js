@@ -11,8 +11,11 @@ import Sort from '../../../components/sort/Sort';
 import {
 	voteDocComment,
 	sortList,
-	removeComment
+	removeComment,
+	changeCommentEdit,
+	editCommentChanged
 } from '../actions';
+import { editComment } from '../../../../utils/api';
 
 class Comments extends Component {
 	vote = ( id, option ) => {
@@ -30,6 +33,21 @@ class Comments extends Component {
 		this.props.removeComment(id);
 	}
 
+	editComment = (info, type) => {
+		if (type === 'cancel') {
+			this.props.editCommentChanged(info.id, info.body);
+			this.props.changeCommentEdit(null);
+		} else if (type === 'toggle' && this.props.touchCommentIndex === null) {
+			this.props.changeCommentEdit(info.id);
+		} else if (type === 'confirm') {
+			editComment(info.id, info.body).then(comment => {
+				this.props.changeCommentEdit(null);
+			});
+		} else if (type === 'edit') {
+			this.props.editCommentChanged(info.id, info.body);
+		}
+	}
+
 	sortList = event => {
 		this.props.sortList( event.target.value );
 	};
@@ -43,7 +61,7 @@ class Comments extends Component {
 				{(comments.length > 0)? <div className="comment-header">Comments:</div> : null}
 				{(comments.length > 0)? <Sort sortby={sortby} sort={this.sortList} /> : null}
 				{comments.map(comment => (
-					<Comment key={comment.id} comment={comment} vote={this.vote} deleteComment={this.deleteComment} />
+					<Comment key={comment.id} comment={comment} vote={this.vote} editComment={this.editComment} deleteComment={this.deleteComment} />
 				))}
 			</div>
 		);
@@ -55,11 +73,13 @@ function mapStateToProps( {
 } ) {
 	const {
 		comments,
-		sortby
+		sortby,
+		touchCommentIndex
 	} = detailPage;
 	return {
 		comments,
-		sortby
+		sortby,
+		touchCommentIndex
 	};
 }
 
@@ -68,6 +88,8 @@ function mapDispatchToProps( dispatch ) {
 		voteDocComment: ( showId, option, index ) => dispatch( voteDocComment( showId, option, index ) ),
 		sortList: sortby => dispatch( sortList( sortby ) ),
 		removeComment: id => dispatch( removeComment( id ) ),
+		changeCommentEdit: id => dispatch ( changeCommentEdit( id ) ),
+		editCommentChanged: (id, body) => dispatch( editCommentChanged(id, body) )
 	};
 }
 

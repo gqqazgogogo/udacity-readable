@@ -1,4 +1,4 @@
-import { getDocDetail, getComments, voteDoc, voteComment, postComment, deleteComment } from '../../../utils/api';
+import { getDocDetail, getComments, voteDoc, voteComment, postComment, deleteComment, deleteDoc } from '../../../utils/api';
 export const FETCH_DETAIL = 'FETCH_DETAIL';
 export const RECEIVE_DETAIL = 'RECEIVE_DETAIL';
 export const FETCH_COMMENT = 'FETCH_COMMENT';
@@ -16,6 +16,11 @@ export const TOGGLE_EDIT = 'TOGGLE_EDIT';
 export const EDIT_CHANGE = 'EDIT_CHANGE';
 export const EDIT_CONFIRM = 'EDIT_CONFIRM';
 export const EDIT_CANCEL = 'EDIT_CANCEL';
+export const DELETE_READ = 'DELETE_READ';
+export const DELETE_READ_END = 'DELETE_READ_END';
+export const TOGGLE_COMMENT_EDIT = 'TOGGLE_COMMENT_EDIT';
+export const EDIT_COMMENT_CHANGE = 'EDIT_COMMENT_CHANGE';
+export const GO_BACK = 'GO_BACK';
 export const getDetail = id => (dispatch, getState) => {
 	dispatch(fetchDetail());
 	return getDocDetail(id)
@@ -151,3 +156,42 @@ export const editChange = body => (
 		}
 	}
 )
+
+export const deleteReadable = (id) => (dispatch, getState) => {
+	dispatch(deleteRead(id));
+	return deleteDoc(id)
+		.then(readable => dispatch(deleteReadEnd(id)));
+};
+
+const deleteRead = (id) => ({
+	type: DELETE_READ,
+	payload: {
+		id
+	}
+});
+
+const deleteReadEnd = (id) => ({
+	type: DELETE_READ_END,
+	payload: {
+		id
+	}
+});
+
+export const changeCommentEdit = id => ({
+	type: TOGGLE_COMMENT_EDIT,
+	payload: {
+		id
+	}
+});
+
+export const editCommentChanged = (id, body) => ({
+	type: EDIT_COMMENT_CHANGE,
+	payload: {
+		id,
+		body
+	}
+});
+
+export const goBack = () => ({
+	type: GO_BACK
+});

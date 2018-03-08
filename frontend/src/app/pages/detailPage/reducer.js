@@ -11,7 +11,10 @@ import {
 	COMMENT_END,
 	DELETE_COMMENT_END,
 	TOGGLE_EDIT,
-	EDIT_CHANGE
+	EDIT_CHANGE,
+	TOGGLE_COMMENT_EDIT,
+	EDIT_COMMENT_CHANGE,
+	GO_BACK
 } from './actions';
 import { SHOW_DETAIL } from '../homePage/actions';
 import { sort } from '../../../utils/api';
@@ -89,7 +92,7 @@ export function detailPage(state = initialState, action) {
 				...state,
 				comments: sort(state.comments.filter(comment => comment.id !== payload.id), state.sortby)
 			}
-		case TOGGLE_EDIT: 
+		case TOGGLE_EDIT:
 			return {
 				...state,
 				editing: !state.editing
@@ -102,6 +105,18 @@ export function detailPage(state = initialState, action) {
 					body: payload.body
 				}
 			}
+		case TOGGLE_COMMENT_EDIT:
+			return {
+				...state,
+				touchCommentIndex: payload.id
+			}
+		case EDIT_COMMENT_CHANGE:
+			return {
+				...state,
+				comments: state.comments.map(item => item.id === payload.id ? { ...item, body: payload.body } : item)
+			}
+		case GO_BACK:
+			return { ...initialState };
 		default:
 			return state;
 	}

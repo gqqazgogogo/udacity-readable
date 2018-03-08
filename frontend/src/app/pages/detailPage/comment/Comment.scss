@@ -4,7 +4,14 @@
     padding-bottom: 40px;
     border-bottom: 1px solid #EDE7F6;
 		>.header {
+			>.edit {
+				margin-left: 8px;
+				float: right;
+				cursor: pointer;
+				color: #673AB7;
+			}
 			>.delete {
+				margin-left: 8px;
 				float: right;
 				cursor: pointer;
 				color: #f44336;

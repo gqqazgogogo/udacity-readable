@@ -1,15 +1,16 @@
 .categories {
     display: flex;
     margin: 8px;
-    >.categorie {
+    .categorie {
         cursor: pointer;
         padding: 2px 8px;
+				text-decoration: none;
         &.actived {
             color: #673AB7;
             border-bottom: 1px solid #673AB7;
         }
     }
-    >label {
+    label {
         margin-left: 16px;
         padding: 2px 8px;
     }

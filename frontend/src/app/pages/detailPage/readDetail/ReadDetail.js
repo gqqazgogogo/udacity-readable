@@ -5,7 +5,6 @@ import React, {
 import {
 	connect
 } from "react-redux";
-import Modal from "react-modal";
 
 import "./ReadDetail.css";
 import Voter from "../../../components/voter/Voter";
@@ -15,7 +14,8 @@ import {
 	createComment,
 	toggleEdit,
 	editChange,
-
+	deleteReadable,
+	goBack
 } from '../actions';
 import Creator from '../../../components/creator/Creator';
 import { editDoc } from '../../../../utils/api';
@@ -32,6 +32,12 @@ class ReadDetail extends Component {
 			this.props.vote( id, option );
 		}
 	};
+
+	deleteRead = (id) => {
+		this.props.deleteReadable(id);
+		this.props.goBack();
+		window.history.back();
+	}
 
 	editHandle = () => {
 		if (this.props.editing) {
@@ -59,18 +65,24 @@ class ReadDetail extends Component {
 				author: data.author
 			};
 			this.props.createComment(postParams);
-		}	
+		}
 	}
+
+	pop() {
+		this.props.goBack();
+		window.history.back();
+	}
+
 	render() {
 		const {
 			readable,
-			voteModalOpen,
 			voting,
 			editing,
 			editChange
 		} = this.props;
 		return (
 			<div className="read-detail">
+				<button onClick={event => this.pop()}>return</button>
                 <h2 className="page-header">
                     {readable.title ? readable.title : readable.error}
 				</h2>
@@ -87,21 +99,13 @@ class ReadDetail extends Component {
 					editing ? <button onClick={this.cancelHandle}>cancel</button> : null
 				}
 				<button onClick={this.editHandle}>{editing ? 'Commit' : 'Edit'}</button>
-				
+				<button onClick={event => this.deleteRead(readable.id)}>delete</button>
                 <Voter id={readable.id} vote={this.vote} voting={voting} voteScore={readable.voteScore} />
                 <Comments />
 								<Creator
 										type="comment"
 										title="Create a new comment"
 										submit={this.createComment}/>
-                <Modal
-                    appElement={document.getElementById("root")}
-                    className="modal"
-                    overlayClassName="overlay"
-                    isOpen={voteModalOpen}
-                    onRequestClose={this.closeVoteModal}
-                    contentLabel="Modal"
-                />
             </div>
 		);
 	}
@@ -114,14 +118,12 @@ function mapStateToProps( {
 		showId,
 		voting,
 		readable,
-		voteModalOpen,
 		editing
 	} = detailPage;
 	return {
 		showId,
 		voting,
 		readable,
-		voteModalOpen,
 		editing
 	};
 }
@@ -131,7 +133,9 @@ function mapDispatchToProps( dispatch ) {
 		vote: ( showId, option ) => dispatch( vote( showId, option ) ),
 		createComment: params => dispatch( createComment(params) ),
 		toggleEdit: () => dispatch( toggleEdit() ),
-		editChange: body => dispatch(editChange(body))
+		editChange: body => dispatch(editChange(body)),
+		deleteReadable: ( id ) => dispatch( deleteReadable( id ) ),
+		goBack: () => dispatch( goBack() )
 	};
 }
 

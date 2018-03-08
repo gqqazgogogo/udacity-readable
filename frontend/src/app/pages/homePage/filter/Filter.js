@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { Link } from "react-router-dom";
 import Sort from '../../../components/sort/Sort';
 import { requestCategories } from "./actions";
 import "./Filter.css";
@@ -23,15 +23,12 @@ class Filter extends Component {
         return (
             <div className="categories">
                 {categories.map(cate => (
-                    <span
-                        onClick={() => this.updateList(cate.name)}
-                        key={cate.name}
-                        className={`categorie ${
-                            cate.name === categorie ? "actived" : ""
-                        } `}
-                    >
-                        {cate.name}
-                    </span>
+										<Link to={cate.name}
+											key={cate.name}
+											className={`categorie ${cate.name === categorie ? "actived" : ""}`}
+											onClick={() => this.updateList(cate.name)}>
+		                  {cate.name}
+			              </Link>
                 ))}
                 <Sort sortby={sortby} sort={this.sortList} />
             </div>

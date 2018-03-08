@@ -1,12 +1,13 @@
 .categories {
   display: flex;
   margin: 8px; }
-  .categories > .categorie {
+  .categories .categorie {
     cursor: pointer;
-    padding: 2px 8px; }
-    .categories > .categorie.actived {
+    padding: 2px 8px;
+    text-decoration: none; }
+    .categories .categorie.actived {
       color: #673AB7;
       border-bottom: 1px solid #673AB7; }
-  .categories > label {
+  .categories label {
     margin-left: 16px;
     padding: 2px 8px; }

@@ -83,8 +83,8 @@ export const postComment = (comment: PostCommentInfo) =>
 		})
 	}).then(res => res.json());
 
-export const editComment = (body: string) =>
-	fetch(`${api}/comments`, {
+export const editComment = (id:string, body: string) =>
+	fetch(`${api}/comments/${id}`, {
 		method: 'PUT',
 		headers,
 		body: JSON.stringify({

@@ -12,7 +12,18 @@ class Creator extends Component {
 		author: null
 	};
 	submit() {
-		this.props.submit(this.submitInfo);
+		this.props.submit( this.submitInfo );
+		this.submitInfo = {
+			theme: null,
+			content: null,
+			type: null,
+			author: null
+		};
+		if (this.refs.theme) {
+			this.refs.theme.value = '';
+		}
+		this.refs.content.value = '';
+		this.refs.author.value = '';
 	}
 	render() {
 		const {
@@ -20,8 +31,8 @@ class Creator extends Component {
 			types,
 			type
 		} = this.props;
-		if (this.submitInfo.type === null && types && types.length > 0) {
-			this.submitInfo.type = types[0].name;
+		if ( this.submitInfo.type === null && types && types.length > 0 ) {
+			this.submitInfo.type = types[ 0 ].name;
 		}
 		return (
 			<div className="creator">
@@ -41,11 +52,11 @@ class Creator extends Component {
                 </div>
 								{
 									type === 'read'
-									? <input onChange={event => this.submitInfo.theme = event.target.value} className="theme" placeholder="please input theme" />
+									? <input ref="theme" onChange={event => this.submitInfo.theme = event.target.value} className="theme" placeholder="please input theme" />
 									: null
 								}
-                <input onChange={event => this.submitInfo.author = event.target.value} className="author" placeholder="please input your name" />
-                <textarea onChange={event => this.submitInfo.content = event.target.value} className="content" placeholder="please input content..."></textarea>
+                <input ref="author" onChange={event => this.submitInfo.author = event.target.value} className="author" placeholder="please input your name" />
+                <textarea ref="content" onChange={event => this.submitInfo.content = event.target.value} className="content" placeholder="please input content..."></textarea>
                 <div className="buttons">
                     <span className="submit" onClick={event => this.submit()}>Submit</span>
                 </div>
