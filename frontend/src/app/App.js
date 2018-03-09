@@ -5,6 +5,7 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 
 import HomePage from "./pages/homePage/HomePage";
 import DetailPage from "./pages/detailPage/DetailPage";
+import NotFoundComponent from "./pages/share/404";
 import "./App.css";
 
 class App extends Component {

@@ -9,7 +9,9 @@ import "./Filter.css";
 class Filter extends Component {
   componentDidMount() {
     this.props.requestCategories().then(() => {
-      this.updateList("all");
+			if (this.props.categorie === null) {
+				this.updateList("all");
+			}
     });
   }
   updateList(type: string) {
