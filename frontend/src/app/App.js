@@ -1,40 +1,31 @@
 // @flow
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux'
-import {
-	Route,
-	Redirect,
-	withRouter
-} from 'react-router-dom'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 
-import HomePage from './pages/homePage/HomePage'
-import DetailPage from './pages/detailPage/DetailPage'
-import './App.css';
+import HomePage from "./pages/homePage/HomePage";
+import DetailPage from "./pages/detailPage/DetailPage";
+import "./App.css";
 
 class App extends Component {
-	render() {
-		return (
-			<div className="App">
-				<Redirect exact to="/all" />
-				<Route exact path="/:categorie" component={HomePage} />
-				<Route exact path="/:categorie/:id" component={DetailPage} />
+  render() {
+    return (
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/:category" component={HomePage} />
+          <Route exact path="/:category/:id" component={DetailPage} />
+        </Switch>
       </div>
-		)
-	}
+    );
+  }
 }
 
-function mapStateToProps( {
-	homePage,
-	detailPage
-} ) {
-	return {}
+function mapStateToProps({ homePage, detailPage }) {
+  return {};
 }
 
-function mapDispatchToProps( dispatch ) {
-	return {}
+function mapDispatchToProps(dispatch) {
+  return {};
 }
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( App ))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

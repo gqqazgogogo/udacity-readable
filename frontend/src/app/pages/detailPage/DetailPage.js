@@ -11,9 +11,15 @@ import ReadDetail from "./readDetail/ReadDetail";
 
 class DetailPage extends Component {
     componentDidMount() {
-        const { showId } = this.props;
-        if (showId) {
-            this.props.getDetail(showId).then(() => this.props.getComment(showId));
+        const { id } = this.props.match.params;
+        if (id) {
+            this.props.getDetail(id).then((res) => {
+							if (res.payload.readable !== null) {
+								this.props.getComment(id);
+							} else {
+								window.history.back();
+							}
+						});
         }
     }
     render() {

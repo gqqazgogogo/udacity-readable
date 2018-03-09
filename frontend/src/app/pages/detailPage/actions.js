@@ -24,10 +24,10 @@ export const GO_BACK = 'GO_BACK';
 export const getDetail = id => (dispatch, getState) => {
 	dispatch(fetchDetail());
 	return getDocDetail(id)
-		.then(readable => ({ ...readable,
+		.then(readable => (readable.id ? { ...readable,
 			date: new Date(readable.timestamp)
 				.Format('yyyy-MM-dd')
-		}))
+		} : null))
 		.then(readable => dispatch(receiveDetail({
 			readable
 		})));
